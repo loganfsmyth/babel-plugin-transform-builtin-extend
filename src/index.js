@@ -7,7 +7,9 @@ import template from 'babel-template';
 const buildHelper = template(`
     function HELPER(cls){
         function ExtendableBuiltin(){
-            var instance = cls.apply(this, arguments) || this;
+            // Not passing "newTarget" because core-js would fall back to non-exotic
+            // object creation.
+            var instance = Reflect.construct(cls, Array.from(arguments));
             Object.setPrototypeOf(instance, Object.getPrototypeOf(this));
             return instance;
         }
@@ -17,7 +19,7 @@ const buildHelper = template(`
                 enumerable: false,
                 writable: true,
                 configurable: true,
-            }
+            },
         });
         if (Object.setPrototypeOf){
             Object.setPrototypeOf(ExtendableBuiltin, cls);
@@ -46,7 +48,7 @@ const buildHelperApproximate = template(`
                 enumerable: false,
                 writable: true,
                 configurable: true,
-            }
+            },
         });
         if (Object.setPrototypeOf){
             Object.setPrototypeOf(ExtendableBuiltin, cls);
