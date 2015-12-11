@@ -38,6 +38,7 @@ to approximate extending a class, though your results may vary depending on your
         }]
     ]
 }
+```
 
 ## Limitations
 
