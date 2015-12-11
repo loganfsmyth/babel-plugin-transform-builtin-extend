@@ -1,0 +1,14 @@
+{
+    "presets": [
+        "es2015",
+    ],
+    "plugins": [
+        ["../", {
+            "approximate": true,
+            "globals": [
+                "Error",
+                "Array",
+            ],
+        }],
+    ],
+}
