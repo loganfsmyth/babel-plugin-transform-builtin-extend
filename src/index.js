@@ -22,7 +22,7 @@ const buildHelper = template(`
             },
         });
         if (Object.setPrototypeOf){
-            Object.setPrototypeOf(ExtendableBuiltin, cls);
+            Object.setPrototypeOf(ExtendableBuiltin, cls, this.constructor);
         } else {
             ExtendableBuiltin.__proto__ = cls;
         }
