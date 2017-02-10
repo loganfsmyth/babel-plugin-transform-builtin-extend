@@ -1,7 +1,7 @@
 {
   "name": "babel-plugin-transform-builtin-extend",
   "description": "A plugin for Babel 6 supports extending from builtin types based on static analysis.",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": "Logan Smyth <loganfsmyth@gmail.com>",
   "main": "lib",
   "license": "MIT",
