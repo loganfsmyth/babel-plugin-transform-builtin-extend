@@ -6,11 +6,17 @@ import template from 'babel-template';
  */
 const buildHelper = template(`
     function HELPER(cls){
+        var setPrototypeOf = Object.setPrototypeOf || (function setPrototypeOf(a, b) {
+            a.__proto__ = b;
+        });
+        var getPrototypeOf = Object.getPrototypeOf || (function getPrototypeOf(a)) {
+            return a.__proto__;
+        });
         function ExtendableBuiltin(){
             // Not passing "newTarget" because core-js would fall back to non-exotic
             // object creation.
-            var instance = Reflect.construct(cls, Array.from(arguments));
-            Object.setPrototypeOf(instance, Object.getPrototypeOf(this));
+            var instance = new (Function.prototype.bind.apply(cls, arguments))();
+            setPrototypeOf(instance, getPrototypeOf(this));
             return instance;
         }
         ExtendableBuiltin.prototype = Object.create(cls.prototype, {
@@ -21,12 +27,8 @@ const buildHelper = template(`
                 configurable: true,
             },
         });
-        if (Object.setPrototypeOf){
-            Object.setPrototypeOf(ExtendableBuiltin, cls);
-        } else {
-            ExtendableBuiltin.__proto__ = cls;
-        }
 
+        setPrototypeOf(ExtendableBuiltin, cls);
         return ExtendableBuiltin;
     }
 `);
