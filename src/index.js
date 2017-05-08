@@ -9,7 +9,7 @@ const buildHelper = template(`
         function ExtendableBuiltin(){
             // Not passing "newTarget" because core-js would fall back to non-exotic
             // object creation.
-            var instance = Reflect.construct(cls, Array.from(arguments));
+            var instance = new (Function.prototype.bind.apply(cls, arguments))();
             Object.setPrototypeOf(instance, Object.getPrototypeOf(this));
             return instance;
         }
