@@ -42,5 +42,5 @@ to approximate extending a class, though your results may vary depending on your
 
 ## Limitations
 
-This plugin will only reles on assigning `__proto__` for static property inheritance from parent constructors.
+This plugin will only rely on assigning `__proto__` for static property inheritance from parent constructors.
 If you are relying on this, it will not work on IE<=10 and any other browsers that don't support `__proto__`.
