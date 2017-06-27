@@ -9,8 +9,8 @@ const buildHelper = template(`
         function ExtendableBuiltin(){
             // Not passing "newTarget" because core-js would fall back to non-exotic
             // object creation.
-            var instance = Reflect.construct(cls, Array.from(arguments));
-            Object.setPrototypeOf(instance, Object.getPrototypeOf(this));
+            var instance = Reflect.construct(cls, arguments);
+            HELPER.setPrototypeOf(instance, Object.getPrototypeOf(this));
             return instance;
         }
         ExtendableBuiltin.prototype = Object.create(cls.prototype, {
@@ -21,14 +21,10 @@ const buildHelper = template(`
                 configurable: true,
             },
         });
-        if (Object.setPrototypeOf){
-            Object.setPrototypeOf(ExtendableBuiltin, cls);
-        } else {
-            ExtendableBuiltin.__proto__ = cls;
-        }
-
+        HELPER.setPrototypeOf(ExtendableBuiltin, cls);
         return ExtendableBuiltin;
     }
+    HELPER.setPrototypeOf = Object.setPrototypeOf || function (o, p) { o.__proto__ = p; return o; };
 `);
 
 /**
