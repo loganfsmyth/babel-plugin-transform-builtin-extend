@@ -14,7 +14,7 @@ In your Babel 6 configuration, for example in a `.babelrc` you might have
 {
     "plugins": [
         ["babel-plugin-transform-builtin-extend", {
-            globals: ["Error", "Array"]
+            "globals": ["Error", "Array"]
         }]
     ]
 }
@@ -33,8 +33,8 @@ to approximate extending a class, though your results may vary depending on your
 {
     "plugins": [
         ["babel-plugin-transform-builtin-extend", {
-            globals: ["Error", "Array"],
-            approximate: true
+            "globals": ["Error", "Array"],
+            "approximate": true
         }]
     ]
 }
